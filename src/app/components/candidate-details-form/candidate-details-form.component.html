@@ -1,0 +1,17 @@
+<!-- Material form login -->
+<div class="card candidate-details-form">
+  <h1>Candidate Details</h1>
+  <form [formGroup]="candidateDetailsForm">
+      <div class="md-form form-container">
+          <input mdbInputDirective type="text" id="name" name="name" class="form-control" formControlName="name">
+          <label for="form1" class="">Enter Your Name</label>
+      </div>
+      <div class="md-form form-container">
+          <input mdbInputDirective type="text" id="name" name="name" class="form-control" formControlName="email">
+          <label for="form1" class="">Enter Your Email</label>
+      </div>
+      <button mdbBtn type="button" color="primary" class="waves-light" mdbWavesEffect>Submit</button>
+  </form>
+  
+</div>
+  <!-- Material form login -->
