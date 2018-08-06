@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 
+import { ActivatedRoute } from '@angular/router';
+
+import { ModelService } from '../../services/model.service';
+
 @Component({
   selector: 'app-quiz-portal',
   templateUrl: './quiz-portal.component.html',
@@ -7,9 +11,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class QuizPortalComponent implements OnInit {
 
-  constructor() { }
+  urlParams : Object; //{ candidate:"string" , subject:"string" }
+
+  constructor( private routerParam : ActivatedRoute, private modelServices : ModelService) { }
 
   ngOnInit() {
+    this.routerParam.params.subscribe( params => {
+      this.urlParams = params;
+    })
   }
 
 }

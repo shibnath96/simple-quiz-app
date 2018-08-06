@@ -15,7 +15,7 @@ const routes = [
   { path: 'home', component: AppComponent },
   { path: 'candidate-details', component: CandidateDetailsFormComponent},
   { path: 'choose-subject', component: ChooseSubjectComponent},
-  { path: 'quiz/:subject', component: QuizPortalComponent}
+  { path: 'quiz/:candidate/:subject', component: QuizPortalComponent}
 ];
 
 @NgModule({

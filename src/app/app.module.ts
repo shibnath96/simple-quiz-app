@@ -8,6 +8,9 @@ import {
 //MD Bootstrap Angular modules
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
 
+// Angular 6 HTTP module
+import { HttpClientModule } from '@angular/common/http';
+
 //All Components
 import { AppComponent } from './app.component';
 import { CandidateDetailsFormComponent } from './components/candidate-details-form/candidate-details-form.component';
@@ -16,9 +19,11 @@ import { QuizPortalComponent } from './components/quiz-portal/quiz-portal.compon
 
 //Services
 import { DataService } from './services/data.service';
+import { ModelService } from './services/model.service';
 
 //Modules
 import { RoutesModule } from './modules/routes/routes.module';
+import { QuestionsModelModule } from './modules/questions-model/questions-model.module'
 
 @NgModule({
   declarations: [
@@ -29,13 +34,15 @@ import { RoutesModule } from './modules/routes/routes.module';
   ],
   imports: [
     BrowserModule,
+    QuestionsModelModule,
     FormsModule,
+    HttpClientModule,
     ReactiveFormsModule,
     MDBBootstrapModule.forRoot(),
     RoutesModule
   ],
   schemas: [ NO_ERRORS_SCHEMA ],
-  providers: [ DataService ],
+  providers: [ ModelService, DataService ],
   bootstrap: [AppComponent]
 })
 export class AppModule {}
