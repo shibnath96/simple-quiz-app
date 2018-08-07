@@ -1,3 +1,11 @@
-<p>
-  choose-subject works!
-</p>
+<mdb-card class="subjectChooseContsain">
+  <h2 style="margin: 20px;">Choose your subject</h2>
+  <form>
+      <select name="subject" class="subjectSelectBox" [(ngModel)]="selectedSubject">
+        <option *ngFor="let subject of subjectList" value="{{subject.subject_id}}">{{subject.subject_name}}</option>
+      </select>
+      <button mdbBtn type="button" color="primary" class="waves-light" mdbWavesEffect (click)="sujectSelectionFormSubmit($event)">
+        submit
+      </button>
+  </form>
+</mdb-card>
