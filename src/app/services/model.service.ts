@@ -46,4 +46,17 @@ export class ModelService {
     }
   }
 
+  getQuizTimeBySubjectId(id) {
+    let modelLocal = this.questionsModel;
+    let minutePerQuestion = 2;
+    for( let i in modelLocal) {
+      if(modelLocal[i].subject_id === id) {
+        return {
+          numberOfQuestion : modelLocal[i].questions.length,
+          totalQuizTime : (modelLocal[i].questions.length) * minutePerQuestion
+        };
+      }
+    }
+  }
+
 }

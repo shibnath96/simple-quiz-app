@@ -1,0 +1,25 @@
+<mdb-navbar SideClass="navbar fixed-top navbar-expand-lg navbar-dark default-color scrolling-navbar ie-nav" [containerInside]="false">
+    <mdb-navbar-brand >
+        <a class="logo navbar-brand" [routerLink]="['']"><strong>Programming Quiz</strong></a>
+    </mdb-navbar-brand>
+    <links>
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item waves-light" mdbWavesEffect *ngIf="!quizStarted">
+                <a class="nav-link" [routerLink]="['/home']">Home<span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item waves-light" *ngIf="quizStarted">
+                <a class="nav-link"><i class="fa fa-user" aria-hidden="true"></i>Welcome, {{candidateName}}</a>
+            </li>
+            <li class="nav-item waves-light" *ngIf="quizStarted">
+                <a class="nav-link"><i class="fa fa-book" aria-hidden="true"></i>Subject: {{quizSubjectName}}</a>
+            </li>  
+        </ul>
+        <ul class="navbar-nav nav-flex-icons">
+            <li class="nav-item waves-light" *ngIf="quizStarted">
+                <a class="nav-link quiz-timer">
+                    <i class="fa fa-clock-o" aria-hidden="true"></i> {{timerMin}} : {{timerSec}}
+                </a>
+            </li>
+        </ul>
+    </links>
+</mdb-navbar>

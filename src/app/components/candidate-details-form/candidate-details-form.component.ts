@@ -10,10 +10,13 @@ import { Router } from '@angular/router'
 })
 export class CandidateDetailsFormComponent implements OnInit {
 
+  title : string = 'Candidate Details Form';
+  componentId : string = 'reg';
   candidateDetailsForm : FormGroup;
   name: FormControl;
   email: FormControl;
   submitDisableBtnStatus : boolean = false;
+  quizStarted : boolean = false;
 
   //Custom valodation messages
   feildReuired :  string = "This field is required";
@@ -50,7 +53,8 @@ export class CandidateDetailsFormComponent implements OnInit {
       window.localStorage.setItem("currentCandidate", JSON.stringify(candidateFormData));
       this.router.navigate(['choose-subject'])
     } else{
-      this.validateAllFormFields(form);
+      //this.validateAllFormFields(form);
+      alert('Both fields are mandatory!!!');
     }
   }
 

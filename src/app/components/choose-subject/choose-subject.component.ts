@@ -12,9 +12,12 @@ import { ModelService } from '../../services/model.service';
   styleUrls: ['./choose-subject.component.css']
 })
 export class ChooseSubjectComponent implements OnInit {
-
+  componentId : string = 'choose';
+  title : string = 'Choose subject';
   subjectList: Array<Object> = [];
   selectedSubject : any;
+  quizStarted : boolean = false;
+
   constructor( private model : ModelService, private router : Router ) {}
 
   ngOnInit() {
@@ -26,6 +29,7 @@ export class ChooseSubjectComponent implements OnInit {
     if ( typeof(selectedSubjectId) !== "undefined") {
       let candidate = JSON.parse(window.localStorage.getItem("currentCandidate"));
       let subjectDetails = this.model.getSubjectDetailsById(selectedSubjectId);
+      window.localStorage.setItem("selectedSubjectId",selectedSubjectId);
       this.router.navigate( [ 'quiz/' + candidate.name + '/' + subjectDetails.subject_name ] );
     }else{
       alert("Please select a subject!!!");

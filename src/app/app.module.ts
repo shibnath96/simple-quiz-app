@@ -1,4 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule, NoopAnimationsModule } from '@angular/platform-browser/animations';
+
 import { NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
 import { 
   ReactiveFormsModule, 
@@ -23,17 +25,21 @@ import { ModelService } from './services/model.service';
 
 //Modules
 import { RoutesModule } from './modules/routes/routes.module';
-import { QuestionsModelModule } from './modules/questions-model/questions-model.module'
+import { QuestionsModelModule } from './modules/questions-model/questions-model.module';
+import { HeaderComponent } from './components/header/header.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     CandidateDetailsFormComponent,
     ChooseSubjectComponent,
-    QuizPortalComponent
+    QuizPortalComponent,
+    HeaderComponent
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
+    NoopAnimationsModule,
     QuestionsModelModule,
     FormsModule,
     HttpClientModule,
