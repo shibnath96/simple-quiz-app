@@ -1,3 +1,31 @@
 <mdb-card class="questionPallate">
-  Hello
+  <mdb-card class="questionHeading">
+    <h4 style="padding: 8px 5px 5px 5px;">{{questionCount}}. {{currentQuestionStatement}}</h4>
+    <div>
+      
+      <div class="options"> 
+        <div class="custom-control custom-radio eachOption" *ngFor="let option of currentQuestionOptionsArray; let i = index">
+          <input type="radio" class="custom-control-input" id="{{ 'option'+i.toString() }}" name="question1">
+          <label class="custom-control-label" for="{{ 'option'+i.toString() }}">{{option}}</label>
+        </div> 
+      </div>
+
+    </div>
+    <div class="row">
+      <div class="col-6">
+        <button mdbBtn type="button" color="primary" class="waves-light" mdbWavesEffect 
+          (click)="prevQuestionBtn()" 
+          
+          [disabled]="questionCount == 0"
+        >Previous</button>
+      </div>
+      <div class="col-6 text-right">
+        <button mdbBtn type="button" color="primary" class="waves-light" mdbWavesEffect 
+          (click)="nextQuestionBtn()" 
+          [disabled]="questionCount == numberOfQuestions"
+        >Next</button>
+      </div>
+      
+    </div>
+  </mdb-card>
 </mdb-card>

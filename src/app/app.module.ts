@@ -8,7 +8,7 @@ import {
 } from '@angular/forms';
 
 //MD Bootstrap Angular modules
-import { MDBBootstrapModule } from 'angular-bootstrap-md';
+import { MDBBootstrapModule, ButtonsModule, WavesModule } from 'angular-bootstrap-md';
 
 // Angular 6 HTTP module
 import { HttpClientModule } from '@angular/common/http';
@@ -28,6 +28,7 @@ import { RoutesModule } from './modules/routes/routes.module';
 import { QuestionsModelModule } from './modules/questions-model/questions-model.module';
 import { HeaderComponent } from './components/header/header.component';
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -44,8 +45,11 @@ import { HeaderComponent } from './components/header/header.component';
     FormsModule,
     HttpClientModule,
     ReactiveFormsModule,
+    RoutesModule,
     MDBBootstrapModule.forRoot(),
-    RoutesModule
+    ButtonsModule.forRoot(),
+    WavesModule.forRoot(),
+    
   ],
   schemas: [ NO_ERRORS_SCHEMA ],
   providers: [ ModelService, DataService ],

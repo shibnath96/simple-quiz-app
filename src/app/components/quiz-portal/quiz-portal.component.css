@@ -1,3 +1,16 @@
 .questionPallate {
     margin: 0% 10% 5% 10%;
 }
+
+.questionHeading {
+    padding: 8px;
+    text-align: left;
+}
+
+.options {
+    margin: 10px;
+}
+
+.eachOption {
+    margin:10px;
+}

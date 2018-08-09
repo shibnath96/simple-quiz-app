@@ -17,7 +17,9 @@
         <ul class="navbar-nav nav-flex-icons">
             <li class="nav-item waves-light" *ngIf="quizStarted">
                 <a class="nav-link quiz-timer">
-                    <i class="fa fa-clock-o" aria-hidden="true"></i> {{timerMin}} : {{timerSec}}
+                    <i class="fa fa-clock-o" aria-hidden="true"></i> 
+                    {{ timerMin <10 ? ('0'+timerMin.toString()) : timerMin }} : 
+                    {{ timerSec <10 ? ('0'+timerSec.toString()) : timerSec }}
                 </a>
             </li>
         </ul>

@@ -47,9 +47,7 @@ export class HeaderComponent implements OnInit, OnChanges {
   }
 
   timesup() {
-    alert('Your time is up');
-    console.log('all 0')
-    this.timerMin == '00' && this.timerSec == '00'
+    //alert('Your time is up');
   }
 
 }
