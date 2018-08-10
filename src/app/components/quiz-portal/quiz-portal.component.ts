@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, NavigationExtras } from '@angular/router';
 
 import { ModelService } from '../../services/model.service';
 
@@ -23,9 +23,12 @@ export class QuizPortalComponent implements OnInit {
   questionCount : any = 0;
   firstQuestion :any;
   nextQuestion : any;
+  currentQuestion : any;
   currentQuestionStatement : string;
   currentQuestionOptionsArray : any = [];
   quizQuestionArrayRecord : any = [];
+  answer : any;
+  finalTotal : any;
 
   constructor( private routerParam : ActivatedRoute, private questionModel : ModelService, private router: Router) { 
     let candidateDetails = window.localStorage.getItem("currentCandidate");
@@ -43,18 +46,12 @@ export class QuizPortalComponent implements OnInit {
       this.quizTime = totalQuizTime.toString();
 
       window.localStorage.removeItem("questionsServed");
-      this.firstQuestion = questionModel.getFirstQuestion(this.selectSubjectId);//Fetching a random question a first question
-      console.log('Frist Question',this.firstQuestion);
+      this.firstQuestion = questionModel.getFirstQuestion(this.selectSubjectId);//Fetching a random question as a first question
+      window.localStorage.setItem('questionsServed', this.firstQuestion.q_number);
+      
+      this.quizQuestionArrayRecord[ this.questionCount ] = this.firstQuestion;
 
       this.renderQuestion(this.firstQuestion);
-
-      // this.currentQuestionStatement = this.firstQuestion.question;
-      // this.currentQuestionOptionsArray = this.firstQuestion.options;
-      
-      window.localStorage.setItem('questionsServed', this.firstQuestion.q_number);
-      this.quizQuestionArrayRecord[ this.questionCount ] = this.firstQuestion;
-      console.log('Record Array', this.quizQuestionArrayRecord);
-      console.log(this.questionCount + '  \  '+this.quizQuestionArrayRecord.length);
 
     }else {
       alert('Your session has been expired!');
@@ -70,31 +67,122 @@ export class QuizPortalComponent implements OnInit {
   }
 
   nextQuestionBtn() {
-    if( this.questionCount < 5) {
+    if( this.questionCount < 4) {
       
       if( this.quizQuestionArrayRecord.length - this.questionCount == 1 ) {
-        console.log('Fetch a new question from model');
-        this.quizQuestionArrayRecord[this.questionCount + 1 ] = this.questionCount;
+        // Looking for new question form model
+        if( this.answer == undefined ) {
+          //When Candidate did not answer
+          console.log('When Candidate did not answer')
+          this.quizQuestionArrayRecord[this.questionCount].status = 'na';
+          this.quizQuestionArrayRecord[this.questionCount].lastAnswer = this.answer;          
+        }
+        
+
+        this.nextQuestion = this.questionModel.getOneQuestion( this.selectSubjectId );
+        this.renderQuestion( this.nextQuestion );
+        this.quizQuestionArrayRecord[this.questionCount + 1 ] = this.nextQuestion;
+
+        let servedQuestionInLocalStorage = window.localStorage.getItem( "questionsServed" );
+        window.localStorage.setItem('questionsServed', servedQuestionInLocalStorage + '-' + this.nextQuestion.q_number.toString() );
+        this.answer = undefined;
       }else {
-        console.log('Prev to Next Operation');
+        // Prev to Next from local array 
+        this.renderQuestion( this.quizQuestionArrayRecord[ this.questionCount + 1 ] );
+        if( this.quizQuestionArrayRecord[this.questionCount + 1].lastAnswer === undefined) {
+          this.answer = undefined;
+        }else {
+          this.answer = this.quizQuestionArrayRecord[this.questionCount + 1].lastAnswer;
+        }
       }
-
+      
       this.questionCount ++;
-      console.log(this.questionCount + '  \  '+this.quizQuestionArrayRecord.length);
-      console.log(this.quizQuestionArrayRecord);
 
+      if( this.quizQuestionArrayRecord.length == 5) {
+        this.quizQuestionArrayRecord[this.questionCount].status = 'na';
+        this.quizQuestionArrayRecord[this.questionCount].lastAnswer = this.answer;
+      }
     }
   }
 
   prevQuestionBtn() {
     this.questionCount = this.questionCount - 1;
-    console.log(this.questionCount + '  \  ' + this.quizQuestionArrayRecord.length);
-    console.log(this.quizQuestionArrayRecord);
+    this.renderQuestion( this.quizQuestionArrayRecord[this.questionCount ] );
+    if( this.quizQuestionArrayRecord[this.questionCount].lastAnswer === undefined) {
+      this.answer = undefined;
+    }else {
+      this.answer = this.quizQuestionArrayRecord[this.questionCount].lastAnswer;
+    }
+    //console.log(this.quizQuestionArrayRecord[this.questionCount].lastAnswer);
   }
 
   renderQuestion(question) {
+    this.currentQuestion = question;
     this.currentQuestionStatement = question.question;
     this.currentQuestionOptionsArray = question.options;
+    //console.log( this.quizQuestionArrayRecord );
   }
 
+  answerChoose(event) {
+
+    if( parseInt(this.answer) === this.currentQuestion.answer ) {
+      console.log('Write Answer');
+      this.quizQuestionArrayRecord[this.questionCount].status = 'rght';
+    }else {
+      console.log('Wrong Answer');
+      this.quizQuestionArrayRecord[this.questionCount].status = 'wrng';
+    }
+    this.quizQuestionArrayRecord[this.questionCount].lastAnswer = this.answer;
+  }
+
+  submitQuiz() {
+    /*
+     * wrng = -2  na = 0 rght = +2 
+    */
+    var wrng = 0;
+    var na = 0;
+    var rght = 0; 
+    let finalTotal = 0;
+    let finalSubmit = this.quizQuestionArrayRecord;
+    for( let i in finalSubmit){
+      //Wrong Answer
+      if( finalSubmit[i].status === "wrng"){
+        finalTotal = finalTotal - 2; 
+        wrng ++;
+      }
+      //Right Answer
+      if( finalSubmit[i].status === "rght"){
+        finalTotal = finalTotal + 2; 
+        rght ++;
+      }
+      //Wrong Answer
+      if( finalSubmit[i].status === "na"){
+        finalTotal = finalTotal; 
+        na ++;
+      }
+      
+    }
+    //console.log(finalTotal);
+    let finalScoreCard = {
+      totalScore : finalTotal,
+      rightAnswer : rght,
+      wrongAnswer : wrng,
+      notAnswered : na,
+      candidateName : this.candidateName,
+      candidateEmail : this.candidateEmail,
+      subject : this.quizSubjectName,
+      totalNumberOfQuestion : this.numberOfQuestions,
+      totalTime : 10,
+      timeTakenToFinishQuiz : 7,
+      questionsWithAnswer : finalSubmit
+    }
+    //console.log(finalScoreCard);
+    let navigationExtras: NavigationExtras = {
+      queryParams: finalScoreCard
+    };
+    this.router.navigate(["final-score-card"], navigationExtras);
+    //Reference url: https://www.thepolyglotdeveloper.com/2016/10/passing-complex-data-angular-2-router-nativescript/
+    
+
+  }
 }

@@ -8,6 +8,8 @@ import { AppComponent } from '../../app.component';
 import { CandidateDetailsFormComponent } from '../../components/candidate-details-form/candidate-details-form.component';
 import { ChooseSubjectComponent } from '../../components/choose-subject/choose-subject.component';
 import { QuizPortalComponent } from '../../components/quiz-portal/quiz-portal.component';
+import { DisplayAnswerComponent  } from '../../display-answer/display-answer.component';
+import { DisplayResultComponent } from '../../display-result/display-result.component';
 
 //Configuring Routes
 const routes = [
@@ -15,7 +17,9 @@ const routes = [
   { path: 'home', component: AppComponent },
   { path: 'candidate-details', component: CandidateDetailsFormComponent},
   { path: 'choose-subject', component: ChooseSubjectComponent},
-  { path: 'quiz/:candidate/:subject', component: QuizPortalComponent}
+  { path: 'quiz/:candidate/:subject', component: QuizPortalComponent},
+  { path: 'final-score-card', component : DisplayResultComponent },
+  { path: 'view-answers', component : DisplayAnswerComponent}
 ];
 
 @NgModule({

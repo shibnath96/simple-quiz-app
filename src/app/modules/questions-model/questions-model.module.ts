@@ -124,14 +124,14 @@ export class QuestionsModelModule {
                 },
                 {   
                     "q_number" : "4",
-                    "question" : "Which class does not override the equals() and hashCode() methods, inheriting them directly from class Object?",
+                    "question" : "What is the default value of short variable?",
                     "options" : [
-                        "java.lang.String",
-                        "java.lang.Double",
-                        "java.lang.StringBuffer",
-                        "java.lang.Character"
+                        "0.0",
+                        "0",
+                        "null",
+                        "not defined"
                     ],
-                    "answer" : 2
+                    "answer" : 1
                 }
             ]
         }

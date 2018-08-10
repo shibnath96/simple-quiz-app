@@ -1,31 +1,38 @@
 <mdb-card class="questionPallate">
   <mdb-card class="questionHeading">
-    <h4 style="padding: 8px 5px 5px 5px;">{{questionCount}}. {{currentQuestionStatement}}</h4>
+    <h4 style="padding: 8px 5px 5px 5px;">{{questionCount + 1 }}. {{currentQuestionStatement}}</h4>
     <div>
-      
       <div class="options"> 
         <div class="custom-control custom-radio eachOption" *ngFor="let option of currentQuestionOptionsArray; let i = index">
-          <input type="radio" class="custom-control-input" id="{{ 'option'+i.toString() }}" name="question1">
+          <input type="radio" class="custom-control-input" id="{{ 'option'+i.toString() }}" name="questionOption"
+            value="{{i}}" [(ngModel)]="answer" (change)="answerChoose($event)" [checked]="true"
+          >
           <label class="custom-control-label" for="{{ 'option'+i.toString() }}">{{option}}</label>
         </div> 
       </div>
-
     </div>
     <div class="row">
       <div class="col-6">
         <button mdbBtn type="button" color="primary" class="waves-light" mdbWavesEffect 
           (click)="prevQuestionBtn()" 
-          
           [disabled]="questionCount == 0"
         >Previous</button>
       </div>
       <div class="col-6 text-right">
         <button mdbBtn type="button" color="primary" class="waves-light" mdbWavesEffect 
           (click)="nextQuestionBtn()" 
-          [disabled]="questionCount == numberOfQuestions"
+          [disabled]="questionCount == 4"
         >Next</button>
       </div>
       
+    </div>
+    <div class="row">
+      <div class="col-12 text-center">
+        <button mdbBtn type="button" color="danger" class="waves-light" mdbWavesEffect 
+          (click)="submitQuiz()"
+          *ngIf="quizQuestionArrayRecord.length == 5"
+        >Submit</button>
+      </div>
     </div>
   </mdb-card>
 </mdb-card>
