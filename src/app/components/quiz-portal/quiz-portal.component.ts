@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
 
 import { ActivatedRoute, Router, NavigationExtras } from '@angular/router';
 
@@ -29,6 +29,12 @@ export class QuizPortalComponent implements OnInit {
   quizQuestionArrayRecord : any = [];
   answer : any;
   finalTotal : any;
+
+  @HostListener("window:beforeunload", ["$event"]) unloadHandler(event: Event) {
+      console.log("Processing beforeunload...");
+      // Do more processing...
+      event.returnValue = false;
+  }
 
   constructor( private routerParam : ActivatedRoute, private questionModel : ModelService, private router: Router) { 
     let candidateDetails = window.localStorage.getItem("currentCandidate");
@@ -64,6 +70,7 @@ export class QuizPortalComponent implements OnInit {
     this.routerParam.params.subscribe( params => {
       this.urlParams = params;
     });
+    
   }
 
   nextQuestionBtn() {
@@ -163,6 +170,9 @@ export class QuizPortalComponent implements OnInit {
       
     }
     //console.log(finalTotal);
+    window.localStorage.setItem("quizFinished", "true");
+    window.localStorage.removeItem("currentCandidate");
+    window.localStorage.removeItem("selectedSubjectId");
     let finalScoreCard = {
       totalScore : finalTotal,
       rightAnswer : rght,
@@ -174,15 +184,13 @@ export class QuizPortalComponent implements OnInit {
       totalNumberOfQuestion : this.numberOfQuestions,
       totalTime : 10,
       timeTakenToFinishQuiz : 7,
-      questionsWithAnswer : finalSubmit
+      questionsWithAnswer : JSON.stringify(finalSubmit)
     }
-    //console.log(finalScoreCard);
+    //console.log(finalScoreCard); // skipLocationChange: true
     let navigationExtras: NavigationExtras = {
       queryParams: finalScoreCard
     };
     this.router.navigate(["final-score-card"], navigationExtras);
     //Reference url: https://www.thepolyglotdeveloper.com/2016/10/passing-complex-data-angular-2-router-nativescript/
-    
-
   }
 }

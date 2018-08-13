@@ -1,0 +1,69 @@
+<mdb-card class="score-card-view text-left">
+  <h1 class="score-card-view-heading">Final Score Card</h1>
+  <div class="score-details">
+    <h4>Name : <b>{{ finalScoreCardData.candidateName }}</b></h4>
+    <h3>Total Score : <b>{{ finalScoreCardData.totalScore }}/10</b></h3>
+    <h5>Time Taken : <b>{{ finalScoreCardData.timeTakenToFinishQuiz }} Minutes</b></h5>
+    <h5>Subject : <b>{{ finalScoreCardData.subject }}</b></h5>
+    <h6>Total Number of Questions : <b>{{ finalScoreCardData.totalNumberOfQuestion }}</b></h6>
+    <div>
+      <div class="final-stat">
+        <i class="material-icons notAns">error_outline</i>
+        <span class="notAns"> Not Answered <b>{{ finalScoreCardData.notAnswered }}</b></span>
+      </div>
+      <div class="final-stat">
+        <i class="material-icons rigtAns">check_circle</i> 
+        <span class="rigtAns">Right Answer <b>{{ finalScoreCardData.rightAnswer }}</b></span>
+      </div>
+      <div class="final-stat">
+        <i class="material-icons wrngAns">cancel </i> 
+        <span class="wrngAns">Wrong Answer <b>{{ finalScoreCardData.wrongAnswer }}</b></span>
+      </div>
+    </div>
+    <div class="view-answer-btn text-center">
+        <button mdbBtn type="button" color="primary" class="waves-light" mdbWavesEffect (click)="basicModal.show()">
+          view answer
+        </button>
+    </div>
+  </div>
+</mdb-card>
+
+
+
+<div mdbModal #basicModal="mdbModal" class="modal fade text-center" tabindex="-1" role="dialog" aria-labelledby="myBasicModalLabel"
+  aria-hidden="true" style="overflow: auto;">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close pull-right" aria-label="Close" (click)="basicModal.hide()">
+          <span aria-hidden="true">×</span>
+        </button>
+        <h1 class="modal-title w-100 text-left" id="myModalLabel">Answer Sheet</h1>
+      </div>
+      <div class="modal-body text-left">
+        <app-view-answers [questionsWithAnswer]="questionsWithAnswer"></app-view-answers>
+      </div>
+      <div class="modal-footer">
+        <button type="button" mdbBtn class="waves-light modal-close-btn" aria-label="Close" (click)="basicModal.hide()" mdbWavesEffect>Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+<!-- 
+
+  rightAnswer
+  subject
+  timeTakenToFinishQuiz
+  totalNumberOfQuestion
+  totalScore
+  totalTime
+  wrongAnswer
+  candidateEmail
+  candidateName
+  notAnswered
+
+ -->

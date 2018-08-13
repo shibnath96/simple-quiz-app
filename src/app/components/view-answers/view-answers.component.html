@@ -1,0 +1,56 @@
+<mdb-card class="">
+  <div style="padding: 15px" *ngFor="let question of questionsWithAnswer; let j = index;">
+    <div>
+        <h3>{{ (j+1) + '  ' + question.question}}</h3>
+        <span class="ans-status" 
+          [ngClass]="{
+            'notAns' : question.status === 'na',
+            'rigtAns' : question.status === 'rght',
+            'wrngAns' : question.status === 'wrng'
+          }"
+        >
+          <i class="material-icons">
+            {{
+              question.status === 'na' ? 'error_outline' : ( 
+                question.status === 'rght' ? 'check_circle' : 'cancel'
+              )
+            }}
+          </i>
+          {{
+            question.status === 'na' ? 'Not Answered' : ( 
+              question.status === 'rght' ? 'Right Answered' : 'Wrong Answered'
+            )
+          }}
+        </span>
+    </div>
+    <div class="options" style="padding: 15px">
+      <div class="options"> 
+        <div *ngFor="let option of question.options; let i = index">
+          <b
+            [ngClass]="{
+              'rghtAnsOption' : question.answer === i,
+              'wrngAnsOption' : question.status === 'wrng' && question.lastAnswer === i.toString()
+            }"
+          >{{option}}</b>
+        </div>
+      </div>
+    </div>
+  </div>
+</mdb-card>
+
+
+<!-- <div class="final-stat">
+    <i class="material-icons notAns">error_outline</i>
+    <span class="notAns"> Not Answered</span>
+  </div>
+  <div class="final-stat">
+    <i class="material-icons rigtAns">check_circle</i> 
+    <span class="rigtAns">Right Answer</span>
+  </div>
+  <div class="final-stat">
+    <i class="material-icons wrngAns">cancel </i> 
+    <span class="wrngAns">Wrong Answer</span>
+  </div> 
+  
+   
+-->

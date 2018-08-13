@@ -1,0 +1,40 @@
+.score-card-view {
+    padding: 0px;
+}
+
+.score-card-view-heading{
+    background-color: #009688;
+    color: white;
+    padding: 10px;
+    margin-bottom: 0px;
+}
+
+.score-details {
+    padding: 10px;
+}
+
+.final-stat {
+    display:inline-flex;
+    margin-right: 10%;
+}
+
+.final-stat>.notAns{
+    color: #ff6f00;
+}
+
+.final-stat>.rigtAns{
+    color: #00c853;
+}
+
+.final-stat>.wrngAns{
+    color: #e53935;
+}
+
+.modal-header {
+    background-color: #00897b;
+    color: white;
+}
+
+.modal-close-btn {
+    background-color: #00897b;
+}

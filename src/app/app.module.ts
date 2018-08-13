@@ -27,9 +27,9 @@ import { ModelService } from './services/model.service';
 import { RoutesModule } from './modules/routes/routes.module';
 import { QuestionsModelModule } from './modules/questions-model/questions-model.module';
 import { HeaderComponent } from './components/header/header.component';
-import { DisplayResultComponent } from './display-result/display-result.component';
-import { DisplayAnswerComponent } from './display-answer/display-answer.component';
-import { ViewRankComponent } from './view-rank/view-rank.component';
+import { FinalScoreComponent } from './components/final-score/final-score.component';
+import { ViewRankComponent } from './components/view-rank/view-rank.component';
+import { ViewAnswersComponent } from './components/view-answers/view-answers.component';
 
 
 @NgModule({
@@ -39,9 +39,9 @@ import { ViewRankComponent } from './view-rank/view-rank.component';
     ChooseSubjectComponent,
     QuizPortalComponent,
     HeaderComponent,
-    DisplayResultComponent,
-    DisplayAnswerComponent,
-    ViewRankComponent
+    FinalScoreComponent,
+    ViewRankComponent,
+    ViewAnswersComponent
   ],
   imports: [
     BrowserModule,

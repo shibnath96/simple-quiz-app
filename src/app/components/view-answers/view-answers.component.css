@@ -1,0 +1,32 @@
+.final-stat {
+    display:inline-flex;
+    margin-right: 10%;
+}
+
+.ans-status {
+    display: inline-flex;
+}
+
+.notAns{
+    color: #ff6f00;
+}
+
+.rigtAns{
+    color: #00c853;
+}
+
+.wrngAns{
+    color: #e53935;
+}
+
+.wrngAnsOption {
+    background-color: #e53935;
+    color: white;
+    font-weight: normal;
+}
+
+.rghtAnsOption {
+    background-color: #00c853;
+    color: white;
+    font-weight: normal;
+}
