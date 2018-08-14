@@ -18,7 +18,11 @@ export class ChooseSubjectComponent implements OnInit {
   selectedSubject : any;
   quizStarted : boolean = false;
 
-  constructor( private model : ModelService, private router : Router ) {}
+  constructor( private model : ModelService, private router : Router ) {
+    if( window.localStorage.getItem("currentCandidate") === null ){
+      router.navigate(['']);
+    }
+  }
 
   ngOnInit() {
     this.subjectList = this.model.allSubject();

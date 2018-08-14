@@ -1,5 +1,5 @@
 <mdb-navbar SideClass="navbar fixed-top navbar-expand-lg navbar-dark default-color scrolling-navbar ie-nav" [containerInside]="false">
-    <mdb-navbar-brand >
+    <mdb-navbar-brand *ngIf="!quizStarted">
         <a class="logo navbar-brand" [routerLink]="['']"><strong>Programming Quiz</strong></a>
     </mdb-navbar-brand>
     <links>

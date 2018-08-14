@@ -30,11 +30,22 @@ export class QuizPortalComponent implements OnInit {
   answer : any;
   finalTotal : any;
 
-  @HostListener("window:beforeunload", ["$event"]) unloadHandler(event: Event) {
-      console.log("Processing beforeunload...");
-      // Do more processing...
-      event.returnValue = false;
-  }
+  @HostListener('window:beforeunload', ['$event'])
+    unloadNotification($event: any) {
+      //$event.returnValue = true;
+      console.log('Are you sure?',$event);
+      $event.returnValue = 'Are you sure?'
+      return $event.returnValue;
+    }
+  
+  @HostListener('window:unload', ['$event'])
+    unloadHandler(event) {
+      console.log('Unloading....');
+      window.localStorage.removeItem("currentCandidate");
+      window.localStorage.removeItem("selectedSubjectId");
+      window.localStorage.removeItem("questionsServed");
+      return event.returnValue;
+    }
 
   constructor( private routerParam : ActivatedRoute, private questionModel : ModelService, private router: Router) { 
     let candidateDetails = window.localStorage.getItem("currentCandidate");
@@ -58,19 +69,23 @@ export class QuizPortalComponent implements OnInit {
       this.quizQuestionArrayRecord[ this.questionCount ] = this.firstQuestion;
 
       this.renderQuestion(this.firstQuestion);
+      console.log( parseInt(this.quizTime) * 60000 );
+      
+      setTimeout( ()=> {
+        this.submitQuiz()
+      },( parseInt(this.quizTime) * 60000 ) );
 
     }else {
       alert('Your session has been expired!');
       router.navigate(['']);
     }
-
+    
   }
 
   ngOnInit() {
     this.routerParam.params.subscribe( params => {
       this.urlParams = params;
     });
-    
   }
 
   nextQuestionBtn() {
@@ -146,51 +161,63 @@ export class QuizPortalComponent implements OnInit {
     /*
      * wrng = -2  na = 0 rght = +2 
     */
+    console.log('Quiz Submitted!!!', this.quizQuestionArrayRecord.length);
+    
     var wrng = 0;
     var na = 0;
     var rght = 0; 
     let finalTotal = 0;
     let finalSubmit = this.quizQuestionArrayRecord;
-    for( let i in finalSubmit){
-      //Wrong Answer
-      if( finalSubmit[i].status === "wrng"){
-        finalTotal = finalTotal - 2; 
-        wrng ++;
+
+    if(this.quizQuestionArrayRecord.length < 5) {
+      alert('Since your quiz time has been finished before check all question, So your Quiz session has been cancelled');
+      window.localStorage.removeItem("currentCandidate");
+      window.localStorage.removeItem("selectedSubjectId");
+      window.localStorage.removeItem("questionsServed");
+      this.router.navigate(['']); 
+    }else {
+      for( let i in finalSubmit){
+        //Wrong Answer
+        if( finalSubmit[i].status === "wrng"){
+          finalTotal = finalTotal - 2; 
+          wrng ++;
+        }
+        //Right Answer
+        if( finalSubmit[i].status === "rght"){
+          finalTotal = finalTotal + 2; 
+          rght ++;
+        }
+        //Wrong Answer
+        if( finalSubmit[i].status === "na"){
+          finalTotal = finalTotal; 
+          na ++;
+        }
+        
       }
-      //Right Answer
-      if( finalSubmit[i].status === "rght"){
-        finalTotal = finalTotal + 2; 
-        rght ++;
+      //console.log(finalTotal);
+      window.localStorage.setItem("quizFinished", "true");
+      window.localStorage.removeItem("currentCandidate");
+      window.localStorage.removeItem("selectedSubjectId");
+      let finalScoreCard = {
+        totalScore : finalTotal,
+        rightAnswer : rght,
+        wrongAnswer : wrng,
+        notAnswered : na,
+        candidateName : this.candidateName,
+        candidateEmail : this.candidateEmail,
+        subject : this.quizSubjectName,
+        totalNumberOfQuestion : this.numberOfQuestions,
+        totalTime : 10,
+        timeTakenToFinishQuiz : 7,
+        questionsWithAnswer : JSON.stringify(finalSubmit)
       }
-      //Wrong Answer
-      if( finalSubmit[i].status === "na"){
-        finalTotal = finalTotal; 
-        na ++;
-      }
-      
+      //console.log(finalScoreCard); // skipLocationChange: true
+      let navigationExtras: NavigationExtras = {
+        queryParams: finalScoreCard
+      };
+      this.router.navigate(["final-score-card"], navigationExtras);
+      //Reference url: https://www.thepolyglotdeveloper.com/2016/10/passing-complex-data-angular-2-router-nativescript/
     }
-    //console.log(finalTotal);
-    window.localStorage.setItem("quizFinished", "true");
-    window.localStorage.removeItem("currentCandidate");
-    window.localStorage.removeItem("selectedSubjectId");
-    let finalScoreCard = {
-      totalScore : finalTotal,
-      rightAnswer : rght,
-      wrongAnswer : wrng,
-      notAnswered : na,
-      candidateName : this.candidateName,
-      candidateEmail : this.candidateEmail,
-      subject : this.quizSubjectName,
-      totalNumberOfQuestion : this.numberOfQuestions,
-      totalTime : 10,
-      timeTakenToFinishQuiz : 7,
-      questionsWithAnswer : JSON.stringify(finalSubmit)
-    }
-    //console.log(finalScoreCard); // skipLocationChange: true
-    let navigationExtras: NavigationExtras = {
-      queryParams: finalScoreCard
-    };
-    this.router.navigate(["final-score-card"], navigationExtras);
-    //Reference url: https://www.thepolyglotdeveloper.com/2016/10/passing-complex-data-angular-2-router-nativescript/
+    
   }
 }

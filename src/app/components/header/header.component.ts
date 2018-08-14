@@ -26,7 +26,7 @@ export class HeaderComponent implements OnInit, OnChanges {
       //1 min = 60000 ms
 
       let totalTime = this.quizTime;
-      this.timerMin = 0;//this.quizTime;
+      this.timerMin = parseInt(totalTime) - 1;//this.quizTime;
       this.timerSec = 59;
       //setTimeout( this.timesup(),60000);
       this.timer = setInterval( () =>{

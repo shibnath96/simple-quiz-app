@@ -20,6 +20,7 @@ export class AppComponent implements OnInit{
   ngOnInit() {}
 
   startQuizBtn(event) {
+    window.localStorage.setItem('aNewQuizSession', 'true');
     this.router.navigate(['candidate-details']);
   }
 

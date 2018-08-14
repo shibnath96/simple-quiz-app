@@ -1,0 +1,7 @@
+localStorage attributes :
+
+aNewQuizSession
+currentCandidate
+selectedSubjectId
+questionsServed
+quizFinished

@@ -14,7 +14,7 @@ export class FinalScoreComponent implements OnInit {
   quizStarted : boolean = false;
   finalScoreCardData: any;
 
-  constructor( private actRouter: ActivatedRoute, router : Router) { 
+  constructor( private actRouter: ActivatedRoute, private router : Router) { 
     let quizFinished = window.localStorage.getItem('quizFinished');
     if( quizFinished === null ){
       router.navigate(['']);
@@ -27,6 +27,11 @@ export class FinalScoreComponent implements OnInit {
       console.log(this.finalScoreCardData);
       this.questionsWithAnswer = JSON.parse(this.finalScoreCardData.questionsWithAnswer);
     })
+  }
+
+  retakeQuiz( event ) {
+    window.localStorage.clear();
+    this.router.navigate(['']);
   }
 
 }
