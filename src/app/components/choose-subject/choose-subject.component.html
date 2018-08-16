@@ -4,8 +4,20 @@
       <select name="subject" class="subjectSelectBox" [(ngModel)]="selectedSubject">
         <option *ngFor="let subject of subjectList" value="{{subject.subject_id}}">{{subject.subject_name}}</option>
       </select>
-      <button mdbBtn type="button" color="primary" class="waves-light" mdbWavesEffect (click)="sujectSelectionFormSubmit($event)">
+      <button mdbBtn type="button" color="primary" class="waves-light" mdbWavesEffect (click)="showConfirmModal($event)"
+        [disabled]="selectedSubject === undefined"
+      >
         submit
       </button>
   </form>
 </mdb-card>
+
+<app-warning-modal
+  [modalHeading]="'Comfirm!'"
+  [modalBodyContent]="'Are you confirm to start this quiz session right now?'"
+  [modalPrimaryColor]="'red'"
+  (onConfirmBtnClick)="sujectSelectionFormSubmit()"
+  [confirmBtnText]="'Confirm'"
+  [closeBtnText]="'No'"
+  [confirmBtnShow]="true"
+></app-warning-modal>

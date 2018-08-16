@@ -17,7 +17,10 @@ export class HeaderComponent implements OnInit, OnChanges {
   timerSec : any;
   timer :  any;
 
-  constructor() {}
+  constructor( ) {
+    //console.log('Modal', modal);
+    
+  }
   ngOnInit() {}
 
   ngOnChanges() {
@@ -48,6 +51,10 @@ export class HeaderComponent implements OnInit, OnChanges {
 
   timesup() {
     //alert('Your time is up');
+  }
+
+  quizInstruction() {
+    
   }
 
 }

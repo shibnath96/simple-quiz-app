@@ -28,6 +28,7 @@
             <li class="nav-item waves-light" class="header-help-icon"  
                 (click)="quizInstruction.show()"
                 mdbTooltip="Click here to see quiz instructions" placement="bottom" mdbWavesEffect
+                *ngIf="!quizStarted"
             >
                 <i class="material-icons">help</i>
             </li>

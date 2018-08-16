@@ -1,0 +1,35 @@
+/*For Red colored Modal*/
+.red-modal-header {
+    background-color: #e53935;
+    color: white;
+}
+
+.red-modal-confirm-btn {
+    background-color: #e53935;
+}
+.red-modal-close-btn {
+    background-color: #ffebee;
+    color: #e53935;
+}
+.warning-content-red {
+    color: #e53935;
+}
+
+/*For Green colored Modal*/
+.green-modal-header {
+    background-color: #00897b;
+    color: white;
+}
+
+.green-modal-confirm-btn {
+    background-color: #00897b;
+    color: white;
+}
+
+.green-modal-close-btn {
+    background-color: white;
+    color: #00897b;
+}
+.warning-content-green {
+    color: #00897b;
+}

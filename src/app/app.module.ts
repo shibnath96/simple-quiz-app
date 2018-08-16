@@ -8,7 +8,7 @@ import {
 } from '@angular/forms';
 
 //MD Bootstrap Angular modules
-import { MDBBootstrapModule, ButtonsModule, WavesModule } from 'angular-bootstrap-md';
+import { MDBBootstrapModule, ButtonsModule, ModalModule, WavesModule } from 'angular-bootstrap-md';
 
 // Angular 6 HTTP module
 import { HttpClientModule } from '@angular/common/http';
@@ -30,6 +30,7 @@ import { HeaderComponent } from './components/header/header.component';
 import { FinalScoreComponent } from './components/final-score/final-score.component';
 import { ViewRankComponent } from './components/view-rank/view-rank.component';
 import { ViewAnswersComponent } from './components/view-answers/view-answers.component';
+import { WarningModalComponent } from './components/modals/warning-modal/warning-modal.component';
 
 
 @NgModule({
@@ -41,7 +42,8 @@ import { ViewAnswersComponent } from './components/view-answers/view-answers.com
     HeaderComponent,
     FinalScoreComponent,
     ViewRankComponent,
-    ViewAnswersComponent
+    ViewAnswersComponent,
+    WarningModalComponent
   ],
   imports: [
     BrowserModule,
@@ -53,12 +55,12 @@ import { ViewAnswersComponent } from './components/view-answers/view-answers.com
     ReactiveFormsModule,
     RoutesModule,
     MDBBootstrapModule.forRoot(),
+    ModalModule.forRoot(),
     ButtonsModule.forRoot(),
-    WavesModule.forRoot(),
-    
+    WavesModule.forRoot()
   ],
   schemas: [ NO_ERRORS_SCHEMA ],
-  providers: [ ModelService, DataService ],
+  providers: [ DataService, ModelService ],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

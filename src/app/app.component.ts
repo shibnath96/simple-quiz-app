@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router'
+import { Router } from '@angular/router';
+
+//Services
+import { DataService } from './services/data.service';
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -15,13 +19,17 @@ export class AppComponent implements OnInit{
   quizSubjectName : string;
   quizTime : string;
   
-  constructor( private router :  Router) {}
+  constructor( private router :  Router, private dataServices: DataService) {}
 
   ngOnInit() {}
 
   startQuizBtn(event) {
     window.localStorage.setItem('aNewQuizSession', 'true');
     this.router.navigate(['candidate-details']);
+  }
+
+  showModal() {
+    this.dataServices.getModalInstance().show();
   }
 
   routerNavigation(event) {
