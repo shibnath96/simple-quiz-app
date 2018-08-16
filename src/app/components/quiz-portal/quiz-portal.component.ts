@@ -41,9 +41,9 @@ export class QuizPortalComponent implements OnInit {
   @HostListener('window:unload', ['$event'])
     unloadHandler(event) {
       console.log('Unloading....');
-      window.localStorage.removeItem("currentCandidate");
-      window.localStorage.removeItem("selectedSubjectId");
-      window.localStorage.removeItem("questionsServed");
+      //window.localStorage.removeItem("currentCandidate");
+      //window.localStorage.removeItem("selectedSubjectId");
+      //window.localStorage.removeItem("questionsServed");
       return event.returnValue;
     }
 
@@ -171,10 +171,10 @@ export class QuizPortalComponent implements OnInit {
 
     if(this.quizQuestionArrayRecord.length < 5) {
       alert('Since your quiz time has been finished before check all question, So your Quiz session has been cancelled');
-      window.localStorage.removeItem("currentCandidate");
-      window.localStorage.removeItem("selectedSubjectId");
-      window.localStorage.removeItem("questionsServed");
-      this.router.navigate(['']); 
+      //window.localStorage.removeItem("currentCandidate");
+      //window.localStorage.removeItem("selectedSubjectId");
+      //window.localStorage.removeItem("questionsServed");
+      //this.router.navigate(['']); 
     }else {
       for( let i in finalSubmit){
         //Wrong Answer

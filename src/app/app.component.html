@@ -10,9 +10,11 @@
     mdbBtn type="button" 
     color="primary" 
     rounded="true" 
-    class="waves-light" 
+    class="waves-light"
+    mdbTooltip="To start a quiz session" 
+    placement="right"
     mdbWavesEffect
-    (click)="startQuizBtn($event)"
+    (click)="basicModal.show()"
 >
     Start Quiz
 </button>
@@ -28,3 +30,26 @@
   </div>
 </main>
 <!-- /.Main -->
+
+<!-- Warning modal before starting modal -->
+<div mdbModal #basicModal="mdbModal" class="modal fade text-center" tabindex="-1" role="dialog" aria-labelledby="myBasicModalLabel"
+  aria-hidden="true" style="overflow: auto;">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close pull-right" aria-label="Close" (click)="basicModal.hide()">
+          <span aria-hidden="true">×</span>
+        </button>
+        <h1 class="modal-title w-100 text-left" id="myModalLabel">Are you sure?</h1>
+      </div>
+      <div class="modal-body text-left">
+        <h4 style="color: #00897b;">Are you sure to start a quiz session right now ?</h4>
+      </div>
+      <div class="modal-footer">
+        <button type="button" mdbBtn class="waves-light modal-close-btn" aria-label="Close" (click)="basicModal.hide()" mdbWavesEffect>No</button>
+        <button type="button" mdbBtn class="waves-light modal-submit-btn" aria-label="Close" (click)="startQuizBtn($event)" mdbWavesEffect>Yes</button>
+        
+      </div>
+    </div>
+  </div>
+</div>

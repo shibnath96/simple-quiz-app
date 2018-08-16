@@ -14,3 +14,12 @@
 .eachOption {
     margin:10px;
 }
+
+.modal-header {
+    background-color: #e53935;
+    color: white;
+}
+
+.modal-submit-btn {
+    background-color: #e53935;
+}

@@ -8,6 +8,7 @@ import { Component, Input, OnInit, OnChanges } from '@angular/core';
 export class ViewAnswersComponent implements OnInit, OnChanges {
 
   @Input() questionsWithAnswer: any;
+  quizStarted : boolean = false;
 
   constructor() {}
 

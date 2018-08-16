@@ -2,3 +2,19 @@
     padding: 0px;
     font-size: 25px;
 }
+
+.header-help-icon {
+    margin-right: 15px; 
+    color:white;
+    cursor: pointer;
+}
+
+.modal-header {
+    background-color: #00897b;
+    color: white;
+}
+
+.modal-close-btn {
+    background-color: #00897b;
+    color: #e0f2f1;
+}
