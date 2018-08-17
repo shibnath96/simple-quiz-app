@@ -1,24 +1,38 @@
-<div class="card candidate-details-form">
-  <h1>Candidate Details</h1>
-  <form [formGroup]="candidateDetailsForm">
-      <div class="md-form form-container">
-          <input mdbInputDirective type="text" id="name" name="name" class="form-control"
-          formControlName="name" [errorMessage]="'Name is required.'" [validateSuccess]="false"
-          >
-          <label for="form1" class="">Enter Your Name</label>
-      </div>
-      <div class="md-form form-container">
-          <input mdbInputDirective type="text" id="name" name="name" class="form-control"
-            formControlName="email" [errorMessage]="'Email is required.'" [validateSuccess]="false"
-          >
-          <label for="form1" class="">Enter Your Email</label>
-      </div>
-      <button [disabled]="submitDisableBtnStatus" mdbBtn type="submit" 
-        style="margin-top: 20px;" color="primary" class="waves-light" 
-        mdbWavesEffect (click)="formSubmit(candidateDetailsForm,$event)"
+<div class="container text-left">
+  <h2 class="text-center">Candidate details form</h2>
+  <form [formGroup]="candidateDetailsForm" autocomplete="off">
+    <div class="form-group"
+      [ngClass]="{
+        'has-error': name.invalid && (name.dirty || name.touched)
+      }"
+    >
+      <label for="name"><b>Name:</b></label>
+      <input type="text" class="form-control" id="name" name="name"
+        [formControl]="name"
       >
-        Submit
-      </button>
-  </form>
+      <!-- Validation custom messages for email field -->
+      <div class="invalid-feedback" *ngIf="name.errors && (name.dirty || name.touched)">
+        <span *ngIf="name.errors.required">Name is required.</span>
+      </div>
+    </div>
 
+    <div class="form-group"
+      [ngClass]="{
+        'has-error': email.invalid && (email.dirty || email.touched)
+      }"
+    >
+      <label for="email"><b>Email:</b></label>
+      <input type="email" class="form-control" id="email" name="email"
+        [formControl]="email"
+      >
+      <!-- Form validation message for email -->
+      <div class="invalid-feedback" *ngIf="email.errors && (email.touched || email.dirty)">
+        <span *ngIf="email.errors.required">Email is required.</span>
+        <span *ngIf="email.errors.email">Invalid email. Please input a valid email id.</span>
+      </div>
+    </div>
+    <button type="submit" class="btn btn-primary" [disabled]="!candidateDetailsForm.valid"
+      (click)="submitCandidateDetailsForm($event)"
+    >Submit</button>
+  </form>
 </div>

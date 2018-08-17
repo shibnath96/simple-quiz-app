@@ -6,3 +6,25 @@
 .form-container {
     margin: 5% 10% 0 10%;
 }
+
+.container {
+    padding-left: 20%;
+    padding-right: 20%;
+}
+.invalid-feedback {
+    display: block;
+    font-family:  sans-serif;
+    color: red;
+}
+.form-control:focus {
+    box-shadow: none;
+}
+
+.has-error {
+    color: red;
+}
+
+.has-error>input {
+    border-color:red;
+    outline: none;
+}

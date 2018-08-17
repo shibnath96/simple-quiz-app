@@ -10,31 +10,23 @@ import { Router } from '@angular/router'
 })
 export class CandidateDetailsFormComponent implements OnInit {
 
-  title : string = 'Candidate Details Form';
-  componentId : string = 'reg';
-  candidateDetailsForm : FormGroup;
-  name: FormControl;
-  email: FormControl;
-  submitDisableBtnStatus : boolean = false;
+  title : string = 'Candidate details';
   quizStarted : boolean = false;
 
-  //Custom valodation messages
-  feildReuired :  string = "This field is required";
-  nameValidationSuccess : string = "";
-  emailValidationSuccess : string = "";
-  emailValidationError : string = "Invalid Email, please try with another";
+  candidateDetailsForm: FormGroup;
+  name: FormControl;
+  email: FormControl;
 
-  constructor( private router :  Router) { 
-    this.createFormControl();
-    this.createFormGroup();
-  }
+  constructor( private router :  Router) {}
 
   ngOnInit() {
+     this.createFormControl();
+     this.createFormGroup();
   }
 
   createFormControl() {
-    this.name = new FormControl('', [ Validators.required ]);
-    this.email = new FormControl('', [ Validators.required ]);
+    this.name = new FormControl(null, [ Validators.required ]);
+    this.email = new FormControl(null, [ Validators.required, Validators.email ]);
   }
 
   createFormGroup(){
@@ -44,30 +36,12 @@ export class CandidateDetailsFormComponent implements OnInit {
     })
   }
 
-  formSubmit( form, event ) {
-    event.preventDefault();
-    let candidateFormData : object = {};
-    if( form.valid ) {
-      candidateFormData['name'] = form.value.name;
-      candidateFormData['email'] = form.value.email;
-      window.localStorage.setItem("currentCandidate", JSON.stringify(candidateFormData));
-      this.router.navigate(['choose-subject'])
-    } else{
-      //this.validateAllFormFields(form);
-      alert('Both fields are mandatory!!!');
+  submitCandidateDetailsForm(e) {
+    e.preventDefault();
+    if( this.candidateDetailsForm.valid ) {
+      console.log(this.candidateDetailsForm);
+      window.localStorage.setItem("currentCandidate", JSON.stringify(this.candidateDetailsForm.value));
+      this.router.navigate(['choose-subject']);
     }
   }
-
-  validateAllFormFields(formGroup: FormGroup) {         //{1}
-    Object.keys(formGroup.controls).forEach(field => {  //{2}
-      const control = formGroup.get(field);             //{3}
-      if (control instanceof FormControl) {             //{4}
-        control.markAsTouched({ onlySelf: true });
-      } else if (control instanceof FormGroup) {        //{5}
-        this.validateAllFormFields(control);            //{6}
-      }
-    });
-  }
-  
-
 }
